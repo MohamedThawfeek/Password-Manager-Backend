@@ -41,13 +41,13 @@ app.use((req, res, next) => {
 
 
 // 404 handler - must be last route
-// app.use((req, res) => {
-//   res.status(404).json({
-//     success: false,
-//     resultCode: -1021,
-//     message: "API end point is not available."
-//   });
-// });
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    resultCode: -1021,
+    message: "API end point is not available."
+  });
+});
 
 
 // Only start the server if not in serverless environment (Vercel)
