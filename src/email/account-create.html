@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Password Manager</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
+      background-color: #f4f4f7;
+    "
+  >
+    <table
+      role="presentation"
+      style="
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #f4f4f7;
+        padding: 20px 0;
+      "
+    >
+      <tr>
+        <td align="center" style="padding: 20px 0">
+          <table
+            role="presentation"
+            style="
+              width: 100%;
+              max-width: 600px;
+              background-color: #ffffff;
+              border-radius: 12px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+            "
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                style="
+                  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                  padding: 40px 30px;
+                  text-align: center;
+                "
+              >
+                <h1
+                  style="
+                    margin: 0;
+                    color: #ffffff;
+                    font-size: 28px;
+                    font-weight: 700;
+                    letter-spacing: -0.5px;
+                  "
+                >
+                  Welcome Aboard! 🎉
+                </h1>
+              </td>
+            </tr>
+
+            <!-- Content -->
+            <tr>
+              <td style="padding: 40px 30px">
+                <p
+                  style="
+                    margin: 0 0 20px 0;
+                    color: #333333;
+                    font-size: 16px;
+                    line-height: 1.6;
+                  "
+                >
+                  Hi {{name}},
+                </p>
+                <p
+                  style="
+                    margin: 0 0 20px 0;
+                    color: #555555;
+                    font-size: 16px;
+                    line-height: 1.6;
+                  "
+                >
+                  We're thrilled to have you join us! Your account has been
+                  successfully created and you're all set to start managing your
+                  passwords securely.
+                </p>
+
+                <!-- Feature Boxes -->
+                <table
+                  role="presentation"
+                  style="width: 100%; margin: 30px 0; border-collapse: collapse"
+                >
+                  <tr>
+                    <td
+                      style="
+                        padding: 20px;
+                        background-color: #f8f9fa;
+                        border-radius: 8px;
+                        margin-bottom: 15px;
+                      "
+                    >
+                      <p
+                        style="
+                          margin: 0 0 10px 0;
+                          color: #667eea;
+                          font-size: 18px;
+                          font-weight: 600;
+                        "
+                      >
+                        🔐 Secure Storage
+                      </p>
+                      <p
+                        style="
+                          margin: 0;
+                          color: #666666;
+                          font-size: 14px;
+                          line-height: 1.5;
+                        "
+                      >
+                        Your passwords are encrypted and stored safely
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        padding: 20px;
+                        background-color: #f8f9fa;
+                        border-radius: 8px;
+                        margin-top: 15px;
+                      "
+                    >
+                      <p
+                        style="
+                          margin: 0 0 10px 0;
+                          color: #667eea;
+                          font-size: 18px;
+                          font-weight: 600;
+                        "
+                      >
+                        ⚡ Easy Access
+                      </p>
+                      <p
+                        style="
+                          margin: 0;
+                          color: #666666;
+                          font-size: 14px;
+                          line-height: 1.5;
+                        "
+                      >
+                        Access your passwords anytime, anywhere
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <p
+                  style="
+                    margin: 30px 0 20px 0;
+                    color: #555555;
+                    font-size: 16px;
+                    line-height: 1.6;
+                  "
+                >
+                  Get started by logging in to your account and adding your
+                  first password entry.
+                </p>
+
+                <!-- CTA Button -->
+                <table role="presentation" style="width: 100%; margin: 30px 0">
+                  <tr>
+                    <td align="center" style="padding: 15px 0">
+                      <a
+                        href="{{loginUrl}}"
+                        style="
+                          display: inline-block;
+                          padding: 14px 32px;
+                          background: linear-gradient(
+                            135deg,
+                            #667eea 0%,
+                            #764ba2 100%
+                          );
+                          color: #ffffff;
+                          text-decoration: none;
+                          border-radius: 8px;
+                          font-weight: 600;
+                          font-size: 16px;
+                          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+                        "
+                        >Get Started</a
+                      >
+                    </td>
+                  </tr>
+                </table>
+
+                <p
+                  style="
+                    margin: 30px 0 0 0;
+                    color: #888888;
+                    font-size: 14px;
+                    line-height: 1.6;
+                  "
+                >
+                  If you have any questions or need assistance, feel free to
+                  reach out to our support team. We're here to help!
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                style="
+                  background-color: #f8f9fa;
+                  padding: 30px;
+                  text-align: center;
+                  border-top: 1px solid #e9ecef;
+                "
+              >
+                <p style="margin: 0 0 10px 0; color: #666666; font-size: 14px">
+                  Best regards,<br />
+                  <strong style="color: #333333"
+                    >The Password Manager Team</strong
+                  >
+                </p>
+                <p
+                  style="
+                    margin: 20px 0 0 0;
+                    color: #999999;
+                    font-size: 12px;
+                    line-height: 1.5;
+                  "
+                >
+                  This is an automated email. Please do not reply to this
+                  message.<br />
+                  © 2024 Password Manager. All rights reserved.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
