@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const { sendEmail } = require("../../email/email");
 const { oauth2Client } = require("../../utils/google-config");
 const axios = require("axios");
+const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   const { name, email, password } = req.body;
