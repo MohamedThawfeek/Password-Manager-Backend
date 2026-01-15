@@ -154,7 +154,7 @@ exports.googleLogin = async (req, res) => {
       };
     }
 
-    if (!process.env._CLIENT_ID || !process.env._CLIENT_SECRET) {
+    if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET) {
       console.error("Missing OAuth credentials in environment variables");
       return {
         responseCode: 500,
@@ -225,7 +225,7 @@ exports.googleSignUp = async (req, res) => {
     }
 
     // Validate environment variables
-    if (!process.env._CLIENT_ID || !process.env._CLIENT_SECRET) {
+    if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET) {
       console.error("Missing OAuth credentials in environment variables");
       return {
         responseCode: 500,
