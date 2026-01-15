@@ -201,6 +201,7 @@ exports.googleLogin = async (req, res) => {
       responseCode: 200,
       message: "Successfully logged in",
       token: token,
+      data: user,
     };
   } catch (error) {
     return {
