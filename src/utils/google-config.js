@@ -1,8 +1,8 @@
 const {google} = require('googleapis');
 
 exports.oauth2Client = new google.auth.OAuth2(
-    process.env._CLIENT_ID,
-    process.env._CLIENT_SECRET,
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
     "postmessage"
 );
 
