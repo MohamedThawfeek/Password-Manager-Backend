@@ -10,7 +10,7 @@ exports.signup = async (req, res) => {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({ name, email, password: hashedPassword });
     await sendEmail(email, "Welcome to Password Manager", "Account Create", {
       name,
       loginUrl: `${process.env.FRONTEND_URL}/login`,
@@ -19,6 +19,7 @@ exports.signup = async (req, res) => {
       responseCode: 201,
       success: true,
       message: "User created successfully",
+      data: user,
     };
   } catch (error) {
     return {
@@ -272,6 +273,7 @@ exports.googleSignUp = async (req, res) => {
       responseCode: 201,
       message: "Successfully created user",
       token: token,
+      data: createUser,
     };
   } catch (error) {
     console.error("Unexpected error in googleSignUp:", error);
