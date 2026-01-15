@@ -50,8 +50,11 @@ app.use((req, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Only start the server if not in serverless environment (Vercel)
+if (process.env.VERCEL !== '1' && !process.env.LAMBDA_TASK_ROOT) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
 module.exports = { app };
