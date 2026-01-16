@@ -38,6 +38,7 @@ exports.sendEmail = async (to, subject, htmlType="Account Create", details) => {
       html = html.replace("{{name}}", details.name);
       html = html.replace("{{expiryTime}}", details.expiryTime);
       html = html.replace("{{resetUrl}}", details.resetUrl);
+      html = html.replace("{{resetUrlLink}}", details.resetUrl);
     }
 
     const mailOptions = {
@@ -47,11 +48,14 @@ exports.sendEmail = async (to, subject, htmlType="Account Create", details) => {
       html: html,
     };
     await transporter.sendMail(mailOptions);
+
+    console.log("Email sent successfully");
     return {
       success: true,
       message: "Email sent successfully",
     };
   } catch (error) {
+    console.log("Failed to send email", error);
     return {
       success: false,
       message: "Failed to send email",
