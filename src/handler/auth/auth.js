@@ -275,6 +275,11 @@ exports.googleSignUp = async (req, res) => {
       googleID: profile.id,
     });
 
+    await sendEmail(createUser.email, "Welcome to Password Manager", "Account Create", {
+      name: createUser.name,
+      loginUrl: `${process.env.FRONTEND_URL}/login`,
+    })
+
     const token = jwt.sign(
       {
         id: createUser._id,
