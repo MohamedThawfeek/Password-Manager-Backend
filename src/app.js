@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const router = require("./routes/router");
 const { connectDB } = require("./config/db");
+const { checkDatabaseConnection } = require("./middleware/db-check");
 const app = express();
 const PORT = process.env.PORT || 5001;
 
@@ -20,6 +21,9 @@ app.use(
   express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 })
 );
 
+// Database connection check middleware (especially useful for serverless)
+app.use(checkDatabaseConnection);
+
 // Routes
 app.get("/", async (req, res) => {
   res.send({
@@ -27,8 +31,6 @@ app.get("/", async (req, res) => {
     message: "Welcome to the Password Manager Backend!",
   });
 });
-
-connectDB();
 
 app.use(router);
 
@@ -39,7 +41,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // 404 handler - must be last route
 app.use((req, res) => {
   res.status(404).json({
@@ -49,12 +50,29 @@ app.use((req, res) => {
   });
 });
 
+// Initialize database connection and start server
+const startServer = async () => {
+  try {
+    await connectDB();
+    console.log("Database connected successfully");
+    
+    // Only start HTTP server if not in serverless environment
+    if (process.env.VERCEL !== '1' && !process.env.LAMBDA_TASK_ROOT) {
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
+    }
+  } catch (error) {
+    console.error("Failed to connect to database:", error.message);
+    // For regular server, exit if connection fails
+    if (process.env.VERCEL !== '1' && !process.env.LAMBDA_TASK_ROOT) {
+      process.exit(1);
+    }
+    // For serverless, log error but don't exit (connection might retry on first request)
+  }
+};
 
-// Only start the server if not in serverless environment (Vercel)
-if (process.env.VERCEL !== '1' && !process.env.LAMBDA_TASK_ROOT) {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-}
+// Initialize database connection (for both serverless and regular environments)
+startServer();
 
 module.exports = { app };
