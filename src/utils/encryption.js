@@ -1,6 +1,5 @@
 const crypto = require("crypto");
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
 // Get encryption key from environment variable
 // IMPORTANT: In production, use a strong, unique 32-byte key stored securely in environment variables
