@@ -109,6 +109,7 @@ exports.forgotPassword = async (req, res) => {
         expiryTime: "1 hour",
         resetUrl: `${process.env.FRONTEND_URL}/reset-password?token=${token}`,
       })
+      
     return {
       responseCode: 200,
       success: true,
