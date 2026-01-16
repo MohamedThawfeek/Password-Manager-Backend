@@ -4,7 +4,7 @@ const { sendEmail } = require("../../email/email");
 const { oauth2Client } = require("../../utils/google-config");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const emailQueue = require("../../utils/queue/queue");
+const {getQueue} = require("../../utils/queue/queue");
 
 exports.signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -12,7 +12,7 @@ exports.signup = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hashedPassword });
-    emailQueue.add(() =>
+    getQueue().add(() =>
       sendEmail(email, "Welcome to Password Manager", "Account Create", {
         name,
         loginUrl: `${process.env.FRONTEND_URL}/login`,
@@ -106,7 +106,7 @@ exports.forgotPassword = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    emailQueue.add(() =>
+    getQueue().add(() =>
       sendEmail(email, "Reset Your Password", "Password Reset", {
         name: user.name,
         expiryTime: "1 hour",
