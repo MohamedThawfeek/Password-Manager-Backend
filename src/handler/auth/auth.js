@@ -16,11 +16,15 @@ exports.signup = async (req, res) => {
         name,
         loginUrl: `${process.env.FRONTEND_URL}/login`,
       })
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+      });
     return {
       responseCode: 201,
       success: true,
       message: "User created successfully",
       data: user,
+      token: token,
     };
   } catch (error) {
     return {
