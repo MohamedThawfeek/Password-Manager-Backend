@@ -12,12 +12,10 @@ exports.signup = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hashedPassword });
-    emailQueue.add(async () =>
       await sendEmail(email, "Welcome to Password Manager", "Account Create", {
         name,
         loginUrl: `${process.env.FRONTEND_URL}/login`,
       })
-    );
     return {
       responseCode: 201,
       success: true,
@@ -106,13 +104,11 @@ exports.forgotPassword = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    emailQueue.add(async () =>
       await sendEmail(email, "Reset Your Password", "Password Reset", {
         name: user.name,
         expiryTime: "1 hour",
         resetUrl: `${process.env.FRONTEND_URL}/reset-password?token=${token}`,
       })
-    );
     return {
       responseCode: 200,
       success: true,
