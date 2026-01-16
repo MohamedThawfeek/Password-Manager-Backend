@@ -50,14 +50,19 @@ app.use((req, res) => {
 // Initialize database connection and start server
 const startServer = async () => {
   try {
-    await connectDB();
-    console.log("Database connected successfully");
-
-    // Only start HTTP server if not in serverless environment
+    // Only connect to database if not in serverless environment
+    // In serverless, connection will be handled by middleware on first request
     if (process.env.VERCEL !== "1" && !process.env.LAMBDA_TASK_ROOT) {
+      await connectDB();
+      console.log("Database connected successfully");
+      
+      // Start HTTP server only in non-serverless environments
       app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
       });
+    } else {
+      // In serverless, just log that we're ready
+      console.log("Serverless function initialized - database will connect on first request");
     }
   } catch (error) {
     console.error("Failed to connect to database:", error.message);
@@ -65,11 +70,19 @@ const startServer = async () => {
     if (process.env.VERCEL !== "1" && !process.env.LAMBDA_TASK_ROOT) {
       process.exit(1);
     }
-    // For serverless, log error but don't exit (connection might retry on first request)
+    // For serverless, log error but don't exit (connection will retry via middleware)
   }
 };
 
-// Initialize database connection (for both serverless and regular environments)
-startServer();
+// Initialize server (database connection handled differently for serverless)
+// Use setImmediate to avoid blocking module export in serverless
+if (process.env.VERCEL !== "1" && !process.env.LAMBDA_TASK_ROOT) {
+  startServer();
+} else {
+  // In serverless, don't connect immediately - let middleware handle it
+  setImmediate(() => {
+    console.log("Serverless environment detected - lazy database connection enabled");
+  });
+}
 
 module.exports = { app };
