@@ -101,6 +101,14 @@ exports.forgotPassword = async (req, res) => {
         message: "User not found",
       };
     }
+
+    if (user.googleID) {
+      return {
+        responseCode: 400,
+        success: false,
+        message: "User is registered with google",
+      };
+    }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
@@ -109,7 +117,7 @@ exports.forgotPassword = async (req, res) => {
         expiryTime: "1 hour",
         resetUrl: `${process.env.FRONTEND_URL}/reset-password?token=${token}`,
       })
-      
+
     return {
       responseCode: 200,
       success: true,
