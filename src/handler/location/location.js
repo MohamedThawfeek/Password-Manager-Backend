@@ -1,3 +1,6 @@
+const axios = require("axios");
+
+
 
 exports.getEventLocation = async (req, res) => {
     const { search } = req.body;
@@ -8,7 +11,7 @@ exports.getEventLocation = async (req, res) => {
         return {
           success: false,
           responseCode: 400,
-          message: Json.get_event_location.request_body.errors.error,
+          message: "Search parameter is required",
         };
       }
   
@@ -50,7 +53,7 @@ exports.getEventLocation = async (req, res) => {
         return {
           success: false,
           responseCode: 404,
-          message: Json.get_event_location.error.message2,
+          message: "No locations found",
         };
       }
   
@@ -101,7 +104,7 @@ exports.getEventLocation = async (req, res) => {
       return {
         success: true,
         responseCode: 200,
-        message: Json.get_event_location.success.message,
+        message: "Locations fetched successfully",
         data: {
           search_query: search,
           results_count: locations.length,
@@ -113,7 +116,7 @@ exports.getEventLocation = async (req, res) => {
       return {
         success: false,
         responseCode: 500,
-        message: Json.get_event_location.error.message,
+        message: "Failed to fetch locations",
         error: error.message,
       };
     }
