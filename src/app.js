@@ -5,6 +5,7 @@ const { connectDB } = require("./config/db");
 const { checkDatabaseConnection } = require("./middleware/db-check");
 const app = express();
 const PORT = process.env.PORT || 5001;
+const expressFileUpload = require("express-fileupload");
 
 // Allow both production and localhost origins
 const allowedOrigins = ["http://localhost:3000"];
@@ -20,6 +21,8 @@ app.use(express.json({ limit: "50mb" }));
 app.use(
   express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 })
 );
+
+app.use(expressFileUpload());
 
 // Database connection check middleware (especially useful for serverless)
 app.use(checkDatabaseConnection);

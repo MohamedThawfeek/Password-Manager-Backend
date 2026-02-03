@@ -4,6 +4,10 @@ const {
   deletePassword,
   updatePassword,
   getPasswords,
+  uploadImage,
+  getImages,
+  getImageData,
+  streamImage,
 } = require("../../handler/password/passwors");
 
 const {
@@ -75,3 +79,33 @@ exports.GetPasswords = async function (req, res) {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.UploadImage = async function (req, res) {
+  try {
+    const response = await uploadImage(req);
+    return res.status(response.responseCode).send(response);
+  } catch (err) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.GetImages = async function (req, res) {
+  try {
+    const response = await getImages(req);  
+    return res.status(response.responseCode).send(response);
+  } catch (err) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.GetImageData = async function (req, res) {
+  try {
+    const response = await getImageData(req);
+    return res.status(response.responseCode).send(response);
+  } catch (err) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Stream image endpoint - fastest method (sends binary directly)
+exports.StreamImage = streamImage;

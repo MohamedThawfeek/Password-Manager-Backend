@@ -1,4 +1,4 @@
-const { Password } = require("../../model/common");
+const { Password, Images } = require("../../model/common");
 const { encrypt, decrypt } = require("../../utils/encryption");
 
 exports.createPassword = async (req, res) => {
@@ -114,6 +114,53 @@ exports.deletePassword = async (req, res) => {
       responseCode: 400,
       success: false,
       message: "Failed to delete password",
+      db_error: error.message,
+    };
+  }
+};
+
+
+exports.uploadImage = async (req, res) => {
+  const { imageFile } = req.files;
+  try {
+    const imageName = Images.length + 1;
+    const image = await Images.create({
+      image_url: imageFile.data,
+      image_type: imageFile.mimetype,
+      image_name: imageFile.name+imageName,
+    });
+    return {
+      responseCode: 200,
+      success: true,
+      message: "Image uploaded successfully",
+      data: image,
+    };
+  } catch (error) {
+    return {
+      responseCode: 400,
+      success: false,
+      message: "Failed to upload image",
+      db_error: error.message,
+    };
+  }
+};
+
+
+exports.getImages = async (req, res) => {
+  const { id } = req.query;
+  try {
+    const images = await Images.findById(id);
+    return {
+      responseCode: 200,
+      success: true,
+      message: "Images fetched successfully",
+      data: images,
+    };
+  } catch (error) {
+    return {
+      responseCode: 400,
+      success: false,
+      message: "Failed to get images",
       db_error: error.message,
     };
   }
